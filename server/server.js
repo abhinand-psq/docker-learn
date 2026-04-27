@@ -42,6 +42,15 @@ app.get('/description', (req, res) => {
   });
 });
 
+app.get('/api/news', (req, res) => {
+  const newsList = [
+    { id: 1, title: 'Attack on Titan Final Season', content: 'The epic conclusion is finally here! Don\'t miss the final battle.', date: '2023-11-04' },
+    { id: 2, title: 'Demon Slayer Season 4', content: 'Hashira Training Arc announced. Prepare for more stunning animation.', date: '2024-05-12' },
+    { id: 3, title: 'Jujutsu Kaisen', content: 'Culling Game arc confirmed for next season.', date: '2024-01-20' },
+  ];
+  res.json(newsList);
+});
+
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
