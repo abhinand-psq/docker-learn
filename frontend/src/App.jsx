@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import './index.css';
 
 function App() {
-  const [homeData, setHomeData] = useState(null);
   const [descData, setDescData] = useState(null);
   const [newsData, setNewsData] = useState(null);
   const [error, setError] = useState(null);
@@ -10,18 +9,15 @@ function App() {
   useEffect(() => {
     // Fetch all APIs from backend on port 4000
     Promise.all([
-      fetch('http://localhost:4000/'),
       fetch('http://localhost:4000/description'),
       fetch('http://localhost:4000/api/news')
     ])
-      .then(async ([homeRes, descRes, newsRes]) => {
-        if (!homeRes.ok || !descRes.ok || !newsRes.ok) {
+      .then(async ([descRes, newsRes]) => {
+        if (!descRes.ok || !newsRes.ok) {
           throw new Error('Failed to fetch data');
         }
-        const homeJson = await homeRes.json();
         const descJson = await descRes.json();
         const newsJson = await newsRes.json();
-        setHomeData(homeJson);
         setDescData(descJson);
         setNewsData(newsJson);
       })
@@ -34,7 +30,7 @@ function App() {
   return (
     <div className="app-container">
       <header className="hero">
-        <h1 className="hero-title">{homeData ? homeData.message : 'Loading Anime News...'}</h1>
+        <h1 className="hero-title">Anime News Network</h1>
         <p className="hero-subtitle">Your ultimate source for anime updates</p>
       </header>
 
